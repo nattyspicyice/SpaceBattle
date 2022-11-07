@@ -1,68 +1,64 @@
-//Need to create USS HelloWorld
-//lasers
-//you get to attack first
-//you can only attack aliens in order
-//after destroying a ship you have the option to make a hasty retreat
-//hull is hitpoints (20)
-//firepower is damage done to the hull (5)
-//accuracy is the chance between 0 and 1 that the ship will hit the target (0.7)
-//actions - attack, retreat
-
-//////////////////////////////////
-
-//Need to create alien ship
-// first, make 1 ship then make 6
-// they attack one ship at a time
-//they wait for the outcome of the battle before attacking another ship
-//Hull (between 3 and 6)
-//firepower  (between 2 and 4)
-//accuracy (between 0.6 and 0.8)
-//actions - attack
-
-//////////////////////////////////
-// need a way to start the game - a function that runs the game?
-
-//need a way to stop the game - give the user an option to stop the game (if/else)
-
-
-//creating the spaceship
+//The Spaceship
 const spaceShip = {
     name: "USS HelloWorld",
-    hull: 20,
+    startingHull: 20,
     firePower: 5,
-    accuracy: 0.7,
-
-    //actions
-    attackAlienShip(){
-        //cause damage to alien ship
+    randomAccuracyRange(min, max){
+        return Math.floor(Math.random() * (max - min + 1)) + min
+    },
+    attackEnemy(){
+        if (randomAccuracyRange === 0){
+            console.log("Your attack missed!")
+        } else {
+            console.log("The Enemy has been hit!")
+        };
     },
     retreat(){
-        //attempt retreat
-        //if retreat successful, spaceship has successful evaded enemy
-        //else retreat unsuccessful, alien ship can strike spaceship
+        const randomBool = Math.random() > 0.5 ? "Retreat Successful! Enemy evaded!" : "The enemy blocked your escape! Keep fighting.";
+        console.log(randomBool);
     }
 };
 
-//creating alien ship
+//creating enemy ship
 const alienShip = {
-    name: "Enemy Ship 1",
-    randomHullRange(min, max){
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    },
-    randomFirePowerRange(min, max){
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    },
-    randomAccuracyRange(min, max){
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    },
-    attackSpaceShip(){
-        //cause damage to space ship
-    }
-};
+        name: "Enemy Ship",
+        randomHullRange(min, max){
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        },
+        randomFirePowerRange(min, max){
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        },
+        randomAccuracyRange(){
+            return (Math.random() * 0.8)
+        },
+        attackSpaceShip(){
+            if (randomAccuracyRange < 0.6){
+                console.log("The enemy attack was unsuccessful!")
+            } else if (randomAccuracyRange >= 0.6 && randomAccuracyRange <= 0.8){
+                console.log("The enemy is attacking your ship!");
+            }
+        }
+    };
 
-alienShip.randomHullRange(3, 6);
-alienShip.randomFirePowerRange(2,4);
-alienShip.randomAccuracyRange(0.6, 0.8);
+    setTimeout(function(){
+        alert("You are the captain of USS HelloWorld, traveling the beautiful galaxy of Javaeous Scriptius, when suddenly, you spot an enemy alien ship rapidly approaching!");
+    }, 5000);
 
-console.log(alienShip.randomAccuracyRange(0.6, 0.8));
+    setTimeout(function(){
+        alert("Your ship’s hull is equipped with intergalactic armor made of strong moon rock, giving you a starting health status of 20 points.");
+    }, 5000);
+
+    setTimeout(function(){
+        alert("Your ship also has powerful lasers made of stardust, damaging your enemies by 5 points with each hit.")
+    }, 5000);
+
+    setTimeout(function(){
+        alert("However, the spaceship’s mechanic has been on sabbatical for the last light-year and the ship’s lasers can be unreliable, only hitting the enemy ship 50% of the time.")
+    }, 5000);
+
+    setTimeout(function(){
+        alert("...... The Enemy is approaching!!! Ready your aim and fire!")
+    }, 5000);
+
+
 
