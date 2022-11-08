@@ -19,7 +19,7 @@ const spaceShip = {
     }
 };
 
-//creating enemy ship
+//The Enemy Ship
 const alienShip = {
         name: "Enemy Ship",
         randomHullRange(min, max){
@@ -40,25 +40,38 @@ const alienShip = {
         }
     };
 
-    setTimeout(function(){
-        alert("You are the captain of USS HelloWorld, traveling the beautiful galaxy of Javaeous Scriptius, when suddenly, you spot an enemy alien ship rapidly approaching!");
-    }, 5000);
+//START THE GAME
+// document.addEventListener("DOMContentLoaded", function(event) {
+//     const startGame = function() {
+//         for(let i = 0; i < plot.length; i++){
+//             return confirm(plot[i]);
+//         };
+//     startGame();
+    
+//   document.querySelector('#game-play-btn').addEventListener('click', (evt) => {
+//     startGame()
+//   })
+// }});
 
-    setTimeout(function(){
-        alert("Your ship’s hull is equipped with intergalactic armor made of strong moon rock, giving you a starting health status of 20 points.");
-    }, 5000);
+//THE STORY
+let plot = [
+    `You are the captain of USS HelloWorld, traveling the beautiful galaxy of Javaeous Scriptius, when suddenly, you spot an enemy alien ship rapidly approaching!`,
+    `Your ship’s hull is equipped with intergalactic armor made of strong moon rock, giving you a starting health status of 20 points.`,
+    `Your ship also has powerful lasers made of stardust, damaging your enemies by 5 points with each hit.`,
+    `However, the spaceship’s mechanic has been on sabbatical for the last light-year and the ship’s lasers can be unreliable, only hitting the enemy ship 50% of the time.`,
+    `...... The Enemy is approaching!!! Ready your aim and fire! Open your console to keep track of your stats!`
+];
 
-    setTimeout(function(){
-        alert("Your ship also has powerful lasers made of stardust, damaging your enemies by 5 points with each hit.")
-    }, 5000);
+//START THE GAME
+let startGame = document.getElementById('start-btn');
 
-    setTimeout(function(){
-        alert("However, the spaceship’s mechanic has been on sabbatical for the last light-year and the ship’s lasers can be unreliable, only hitting the enemy ship 50% of the time.")
-    }, 5000);
+function Start(){
+    for(let i = 0; i < plot.length; i++){
+    alert(plot[i]);
+}};
 
-    setTimeout(function(){
-        alert("...... The Enemy is approaching!!! Ready your aim and fire!")
-    }, 5000);
+startGame.addEventListener('click', Start)
+
 
 
 
