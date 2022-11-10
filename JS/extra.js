@@ -1,3 +1,14 @@
+//THE STORY
+let plot = [
+    `You are the captain of USS HelloWorld, traveling the beautiful galaxy of Javaeous Scriptius, when suddenly, you spot an enemy alien ship rapidly approaching!`,
+    `Your ship’s hull is equipped with intergalactic armor made of strong moon rock, giving you a starting health status of 20 points.`,
+    `Your ship also has powerful lasers made of stardust, damaging your enemies by 5 points with each hit.`,
+    `However, the spaceship’s mechanic has been on sabbatical for the last light-year and the ship’s lasers can be unreliable, only hitting the enemy ship 70% of the time.`,
+    `......`,
+    `......`,
+    `The Enemy is approaching!!! You have the advantage of attacking first - ready your aim and fire! Open your console to keep track of your stats!`
+];
+
 //THE SPACESHIP
 const spaceShip = {
     name: "USS HelloWorld",
@@ -5,13 +16,13 @@ const spaceShip = {
     firePower: 5,
     accuracy: 0.7,
     attackEnemy(){
-        if (Math.random() > 0.7){
+        if (Math.random() >= 0.7){
             console.log("The Enemy has been hit!")
             deductEnemyHealthPoints();
         } else {
             console.log(`Your attack missed. Now it is the enemy's turn to attack!`);
             alienShip.attackSpaceShip();
-            
+            deductSpaceShipHealthPoints() == spaceShip.hull;
         }
     },
     retreat(){
@@ -36,32 +47,34 @@ const alienShip = {
         return (Math.random() * 0.8)
     },
     attackSpaceShip(){
-        if (randomAccuracyRange < 0.6){
+        if (alienShip.randomAccuracyRange < 0.6){
             console.log("The enemy attack was unsuccessful!")
-
-        } else if (randomAccuracyRange >= 0.6 && randomAccuracyRange <= 0.8){
+        } else if (alienShip.randomAccuracyRange >= 0.6 && randomAccuracyRange <= 0.8){
             console.log("The enemy is attacking your ship!");
-            deductSpaceShipHealthPoints();
+            deductSpaceShipHealthPoints() == spaceShip.hull;
+            console.log(`The Enemy has attacked! Your ship's hull is now at a capacity of ${newAlienShipHp}`)
         }
     }
 };
 
 //Function that reduces Enemy HP
 function deductEnemyHealthPoints(){
-    let newAlienShipHp = alienShip.randomHullRange(3, 6) - 5
-    if (newAlienShipHp < 0){
+    let currentAlienHp = alienShip.randomHullRange(3, 6) - 5
+    if (currentAlienHp <= 0){
         console.log("Enemy Defeated!")
-    } else {
-        console.log(`You weakened the Enemy Ship down to a hull capacity of ${newAlienShipHp}`)
+    } else if (currentAlienHp > 0){
+        console.log(`You weakened the Enemy Ship down to a hull capacity of ${currentAlienHp}.... The Enemy continues its attack!`)
+        alienShip.attackSpaceShip();
+        deductSpaceShipHealthPoints() == spaceShip.hull;
     }
 };
 
 //Function that reduces Spaceship HP
 function deductSpaceShipHealthPoints(){
-    let currentSpaceShipHull = spaceShip.hull - alienShip.randomFirePowerRange;
-    console.log(`The Enemy ship has attacked! Your hull capacity has been reduced to ${currentSpaceShipHull}`)
+    spaceShip.hull -= alienShip.randomFirePowerRange(2,4);
+    console.log(`The Enemy ship has attacked! Your hull capacity has been reduced to ${spaceShip.hull}`)
 
-    if (currentSpaceShipHull < 10){
+    if (spaceShip.hull <= 10){
         console.log(`Your ship has been damaged by 50%! You have an option to retreat now.`);
         let optionToRetreat = prompt("RETREAT?", `Type "Y" for YES or "N" for NO.`)
 
@@ -72,7 +85,6 @@ function deductSpaceShipHealthPoints(){
         }
     }
 };
-
 
 //START THE GAME
 let startGame = document.getElementById('start-btn');
@@ -94,3 +106,26 @@ function firstAttack(){
     if(fire === 'FIRE' || fire === 'fire'){
         console.log(spaceShip.attackEnemy());
 }};
+
+
+class Enemy {
+    constructor(name, hull){
+       this.name = name;
+       this.hull = hull;
+    }
+    let hull = Math.floor(Math.random() * (6 - 3 + 1)) + 3;
+    randomFirePowerRange(min, max){
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+    randomAccuracyRange(min, max){
+        return Math.floor(Math.random() * (max - min)) + min;
+    };
+    attackSpaceShip(){
+        if (randomAccuracyRange() < 0.6){
+            console.log("The enemy attack was unsuccessful!")
+        } else if (randomAccuracyRange() >= 0.6 && randomAccuracyRange() <= 0.8){
+            console.log("The enemy is attacking your ship!");
+            //deductSpaceShipHealthPoints() == spaceShip.hull;
+            //console.log(`The Enemy has attacked! Your ship's hull is now at a capacity of ${newAlienShipHp}`)
+        }
+};
