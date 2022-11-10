@@ -1,7 +1,10 @@
 //THE ENEMY CLASS
 class Enemy {
-    constructor(name){
+    constructor(name, enemyHull, enemyFp, enemyAcc){
        this.name = name;
+       this.enemyHull = enemyHull;
+       this.enemyFp = enemyFp;
+       this.enemyAcc = enemyAcc;
     };
     attackSpaceShip(){
             console.log("The enemy is attacking your ship!");
@@ -9,22 +12,23 @@ class Enemy {
         }
 };
 
+//ENEMY STATS
+let enemyHull = (Math.floor(Math.random() * 4) + 3);
+let enemyFp = (Math.floor(Math.random() * 3) + 2); 
+let enemyAcc = ((Math.random() * (0.8 - 0.6) + 0.6));
+
 //INDIVIDUAL ENEMY SHIPS
 let enemyFleet = [];
 
-const alienShip1 = new Enemy("ES 0001");
-const alienShip2 = new Enemy("ES 0002");
-const alienShip3 = new Enemy("ES 0003");
-const alienShip4 = new Enemy("ES 0004");
-const alienShip5 = new Enemy("ES 0005");
-const alienShip6 = new Enemy("ES 0006");
+const alienShip1 = new Enemy("ES 0001", enemyHull, enemyFp, enemyAcc);
+const alienShip2 = new Enemy("ES 0002", enemyHull, enemyFp, enemyAcc);
+const alienShip3 = new Enemy("ES 0003", enemyHull, enemyFp, enemyAcc);
+const alienShip4 = new Enemy("ES 0004", enemyHull, enemyFp, enemyAcc);
+const alienShip5 = new Enemy("ES 0005", enemyHull, enemyFp, enemyAcc);
+const alienShip6 = new Enemy("ES 0006", enemyHull, enemyFp, enemyAcc);
 
 enemyFleet.unshift(alienShip1, alienShip2, alienShip3, alienShip4, alienShip5, alienShip6);
 
-//ENEMY STATS
-let enemyHull = Math.floor(Math.random() * 4) + 3;
-let enemyFp = Math.floor(Math.random() * 3) + 2;
-let enemyAcc = (Math.floor(Math.random() * 3) + 6) / 10;
 
 //THE HERO SPACESHIP
 const spaceShip = {
@@ -33,13 +37,8 @@ const spaceShip = {
     firePower: 5,
     accuracy: 0.7,
     attackEnemy(){
-            console.log("The Enemy has been hit!")
-            deductFromEnemyHp();
+            console.log("The Enemy has been hit!");
         },
-    attackBack(){
-            console.log("You fought back...")
-            attackEnemy();
-    },
     retreat(){
        if (Math.random() > 0.5){
             console.log("Retreat Successful! Enemy evaded!")
@@ -52,10 +51,10 @@ const spaceShip = {
 //DEDUCTION OF HP FOR BOTH ENEMY AND HERO
 
 function deductFromHeroHp(){
-    let currentHeroHp = (spaceShip.hull - enemyFp);
-    console.log(`Your current hull capacity has been reduced to ${currentHeroHp}`);
+    spaceShip.hull -= enemyFleet[0].enemyFp;
+    console.log(`Your current hull capacity has been reduced to ${spaceShip.hull}`);
 
-    if (currentHeroHp <= 10){
+    if (spaceShip.hull <= 10){
         console.log(`Your ship has been damaged by 50%! You have an option to retreat now.`);
 
         let optionToRetreat = prompt("RETREAT?", `Type "Y" for YES or "N" for NO.`);
@@ -67,13 +66,8 @@ function deductFromHeroHp(){
         }
     }
 };
-let currentEnemyHull = (enemyHull - 5);
+// function deductFromEnemyHp(){};
 
-function deductFromEnemyHp(){
-    if (currentEnemyHull <= 0){
-        console.log("Enemy Defeated!")
-    }
-};
 
 //INTRO - ROUND 0
 let plot = [
@@ -95,190 +89,70 @@ function Start(){
 
     let begin = prompt("Ready?", "Type 'B' for begin.");
     if (begin === 'b' || begin === 'B'){
-        round1();
+        gameRound();
     }
 
 };
 
 startGame.addEventListener('click', Start);
 
-//ROUND 1
-console.log("ROUND 1")
+//Game Round
+function gameRound(){
+    if(Math.round(Math.random()) >= 1){
+    //attack successful
+        spaceShip.attackEnemy();
+        enemyFleet[0].enemyHull -= 5;
 
-function round1(){
-    let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
-    if(fire === 'FIRE' || fire === 'fire'){
-        if (Math.random() >= 0.7){
-            spaceShip.attackEnemy();
-        } else {
-            console.log(`Your attack missed. Now it is the enemy's turn to attack!`);
+        console.log(`ENEMY HP STATUS = ${enemyFleet[0].enemyHull} || SPACESHIP HP STATUS = ${spaceShip.hull}`)
+     } else {
+    //attack misses
+        console.log('Your attack missed.')
+        };
+    
 
-            const hitOrMiss = Math.random();
+    checkEnemyHull();
 
-            if (hitOrMiss >= enemyAcc){
-                console.log(`${alienShip1.name} is retaliating...`)
-                alienShip1.attackSpaceShip();
+    function checkEnemyHull(){
+        //if enemy is still alive
+        if(enemyFleet[0].enemyHull > 0){
+            //enemy attacks if accuracy is more or between 0.6-0.8
+            console.log(`${enemyFleet[0].name} is retaliating...`)
 
-                ////
+            if(Math.random() >= enemyAcc){
+                enemyFleet[0].attackSpaceShip();
             } else {
-                console.log(`${alienShip1.name} is retaliating...`)
-                console.log("The Enemy has attempted to attack your ship, but your ship was successful in dodging the attack! Now it's your turn to attack!");
-                ///
+                console.log("Enemy Attack Missed")
             };
+        //if enemy is dead
+        } else if (enemyFleet[0].enemyHull <= 0) {
+            console.log(`${enemyFleet[0].name} has been defeated, but ${enemyFleet[1].name} is rapidly approaching!`);
+            enemyFleet.shift();
+            console.log(enemyFleet);
         };
     };
-
-    if(currentEnemyHull > 0){
-        console.log(`${alienShip1.name} fights back!`);
-        alienShip1.attackSpaceShip();
-        console.log("You fought back...")
-        spaceShip.attackEnemy();
-    } else {
-        console.log(`${alienShip1.name} has been defeated, but ${alienShip2.name} is rapidly approaching! Prepare for ROUND 2`)
-    }
 };
 
-
-//ROUND 2 
-
-// function round2(){
-//     let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
-//     if(fire === 'FIRE' || fire === 'fire'){
-//         spaceShip.attackEnemy();
-//     };
-
-//     if(currentEnemyHull > 0){
-//         console.log('Your enemy is weakened... but not dead... it is their turn to attack.');
-
-//         alienShip2.attackSpaceShip();
-
-//         if(hitOrMiss >= enemyAcc){
-//             console.log(`${alienShip2} is retaliating...`)
-//         } else {
-//             spaceShip.attackEnemy();
-//             console.log(`${alienShip2} has been defeated, but ${alienShip3} is rapidly approaching! Prepare for ROUND 2`)
-//         }
-
-//     } else {
-//         console.log(`${alienShip2} has been defeated, but ${alienShip3} is rapidly approaching! Prepare for ROUND 2`)
-//     }
+// if(enemyFleet.length == 5){
+//     gameRound();
 // };
 
-// round2();
-
-// //ROUND 3
-
-// function round3(){
-//     let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
-//     if(fire === 'FIRE' || fire === 'fire'){
-//         spaceShip.attackEnemy();
-//     };
-
-//     if(currentEnemyHull > 0){
-//         console.log('Your enemy is weakened... but not dead... it is their turn to attack.');
-
-//         alienShip3.attackSpaceShip();
-
-//         if(hitOrMiss >= enemyAcc){
-//             console.log(`${alienShip3} is retaliating...`)
-//         } else {
-//             spaceShip.attackEnemy();
-//             console.log(`${alienShip3} has been defeated, but ${alienShip4} is rapidly approaching! Prepare for ROUND 2`)
-//         }
-
-//     } else {
-//         console.log(`${alienShip3} has been defeated, but ${alienShip4} is rapidly approaching! Prepare for ROUND 2`)
-//     }
+// if(enemyFleet.length == 4){
+//     gameRound();
 // };
 
-// round3();
-
-// //ROUND 4
-
-// function round4(){
-//     let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
-//     if(fire === 'FIRE' || fire === 'fire'){
-//         spaceShip.attackEnemy();
-//     };
-
-//     if(currentEnemyHull > 0){
-//         console.log('Your enemy is weakened... but not dead... it is their turn to attack.');
-
-//         alienShip4.attackSpaceShip();
-
-//         if(hitOrMiss >= enemyAcc){
-//             console.log(`${alienShip4} is retaliating...`)
-//         } else {
-//             spaceShip.attackEnemy();
-//             console.log(`${alienShip4} has been defeated, but ${alienShip5} is rapidly approaching! Prepare for ROUND 2`)
-//         }
-
-//     } else {
-//         console.log(`${alienShip4} has been defeated, but ${alienShip5} is rapidly approaching! Prepare for ROUND 2`)
-//     }
+// if(enemyFleet.length == 3){
+//     gameRound();
 // };
 
-// round4();
-
-// //ROUND 5
-
-// function round5(){
-//     let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
-//     if(fire === 'FIRE' || fire === 'fire'){
-//         spaceShip.attackEnemy();
-//     };
-
-//     if(currentEnemyHull > 0){
-//         console.log('Your enemy is weakened... but not dead... it is their turn to attack.');
-
-//         alienShip5.attackSpaceShip();
-
-//         if(hitOrMiss >= enemyAcc){
-//             console.log(`${alienShip5} is retaliating...`)
-//         } else {
-//             spaceShip.attackEnemy();
-//             console.log(`${alienShip5} has been defeated, but ${alienShip6} is rapidly approaching! Prepare for ROUND 2`)
-//         }
-
-//     } else {
-//         console.log(`${alienShip5} has been defeated, but ${alienShip6} is rapidly approaching! Prepare for ROUND 2`)
-//     }
+// if(enemyFleet.length == 2){
+//     gameRound();
 // };
 
-// round5();
-
-// //ROUND 6
-
-// function round6(){
-//     let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
-//     if(fire === 'FIRE' || fire === 'fire'){
-//         spaceShip.attackEnemy();
-//     };
-
-//     if(currentEnemyHull > 0){
-//         console.log('Your enemy is weakened... but not dead... it is their turn to attack.');
-
-//         alienShip6.attackSpaceShip();
-
-//         if(hitOrMiss >= enemyAcc){
-//             console.log(`${alienShip6} is retaliating...`)
-//         } else {
-//             spaceShip.attackEnemy();
-//             console.log(`${alienShip6} has been defeated!!!`)
-//         }
-
-//     } else {
-//         console.log(`${alienShip6} has been defeated!!!`)
-//     }
+// if(enemyFleet.length == 1){
+//     gameRound();
 // };
 
-// round6();
-
-// //FINALE
-
-// function finale(){
-//     alert('CONGRATULATIONS. YOU HAVE SUCCESSFULLY DEFEATED THE ENEMY FLEET. THE EXTRATERRESTRIALS OF THE GALAXY OF JAVAEOUS SCRIPTIUS THANK YOU.')
+// if(enemyFleet.length = 0){
+//     console.log('CONGRATULATIONS. YOU HAVE SUCCESSFULLY DEFEATED THE ENEMY FLEET. THE EXTRATERRESTRIALS OF THE GALAXY OF JAVAEOUS SCRIPTIUS THANK YOU.')
 // };
-
-// finale();
 
