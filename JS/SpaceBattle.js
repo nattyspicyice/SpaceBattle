@@ -52,9 +52,9 @@ const spaceShip = {
 function deductSpaceShipHull(){
     if(spaceShip.hull > 0){
         spaceShip.hull -= enemyFleet[0].enemyFp;
-        console.log(spaceShip.hull);
+        console.log(`Your hull capacity has been reduced to ${spaceShip.hull}`);
     } else {
-        alert(`GAME OVER. The enemy fleet has destroyed your ship.`)
+        alert(`GAME OVER. The enemy fleet has destroyed your ship. Refresh your browser to start over.`);
     }
 };
 
@@ -62,7 +62,7 @@ function deductSpaceShipHull(){
 //this function is deployed only if the the attack is successful
 function deductEnemyShipHull(){
     enemyFleet[0].enemyHull -= 5;
-    console.log(enemyFleet[0].enemyHull);
+    console.log(`${enemyFleet[0].name}'s hull capacity has been reduced to ${enemyFleet[0].enemyHull}`);
 };
 
 //SPACESHIP ATTACK CHANCE
@@ -98,9 +98,7 @@ function enemyShipAttackChance(){
         let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
         if(fire === 'FIRE' || fire === 'fire'){
             spaceShipAttackChance();
-        } else {
-            start();
-        };
+        }
     };
 };
 
@@ -124,11 +122,8 @@ function Start(){
 
     let begin = prompt("Ready?", "Type 'B' for begin.");
     if (begin === 'b' || begin === 'B'){
-        for (let i = 0; i < enemyFleet.length; i++){
-            gameRound();
-        };
-    }
-
+        gameRound();
+    };
 };
 
 startGame.addEventListener('click', Start);
@@ -138,28 +133,26 @@ function gameRound(){
     let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
     if(fire === 'FIRE' || fire === 'fire'){
         spaceShipAttackChance();
-    } else {
-        start();
-    }
 
-    //AFTER SPACESHIP ATTACKS...
-    if (enemyFleet[0].enemyHull > 0){
-        console.log(`${enemyFleet[0].name} is retaliating...`)
-        enemyShipAttackChance();
+        //AFTER SPACESHIP ATTACKS...
+        if (enemyFleet[0].enemyHull > 0){
+            console.log(`${enemyFleet[0].name} is retaliating...`)
+            enemyShipAttackChance();
 
-    } else if (enemyFleet[0].enemyHull <= 0){
-        console.log(`${enemyFleet[0].name} has been defeated.`);
+        } else if (enemyFleet[0].enemyHull <= 0){
+            console.log(`${enemyFleet[0].name} has been defeated.`);
+            
+            //this removes defeated enemy from enemy fleet array
+            enemyFleet.shift();
         
-        //this removes defeated enemy from enemy fleet array
-        enemyFleet.shift();
-    
-        if (enemyFleet.length > 0){
-        //if there are still enemies to battle, the next enemy ship approaches
-        console.log(`${enemyFleet[0].name} is rapidly approaching.`);
+            if (enemyFleet.length > 0){
+            //if there are still enemies to battle, the next enemy ship approaches
+            console.log(`${enemyFleet[0].name} is rapidly approaching.`);
 
-        //if all enemies have been defeated
-        } else {
-            console.log("CONGRATS ALL ENEMIES DEFEATED")
+            //if all enemies have been defeated
+            } else if (enemyFleet.length = 0){
+                console.log("CONGRATS ALL ENEMIES DEFEATED")
+            };
         };
     };
 };
