@@ -1,23 +1,21 @@
-function fireLasers(){    
-    if (Math.round(Math.random()) >= 1){
-    //attack successful
-        spaceShip.attackEnemy();
-        enemyFleet[0].enemyHull -= 5;
+// function fireLasers(){    
+//     if (Math.round(Math.random()) >= 1){
+//     //attack successful
+//         spaceShip.attackEnemy();
+//         enemyFleet[0].enemyHull -= 5;
 
-        console.log(`ENEMY HP STATUS = ${enemyFleet[0].enemyHull} || SPACESHIP HP STATUS = ${spaceShip.hull}`)
-     } else {
-    //attack misses
-        console.log('Your attack missed.')
-        };
-};
-
-
-let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
-if(fire === 'FIRE' || fire === 'fire'){
-    fireLasers();
- };
+//         console.log(`ENEMY HP STATUS = ${enemyFleet[0].enemyHull} || SPACESHIP HP STATUS = ${spaceShip.hull}`)
+//      } else {
+//     //attack misses
+//         console.log('Your attack missed.')
+//         };
+// };
 
 
+// let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
+// if(fire === 'FIRE' || fire === 'fire'){
+//     fireLasers();
+//  };
 
 
 

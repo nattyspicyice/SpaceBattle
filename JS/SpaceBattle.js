@@ -122,110 +122,42 @@ function checkEnemyHull(){
 
             console.log("Ready your lasers! It's your turn to fight back!");
 
-            //TESTING
             let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
 
             if(fire === 'FIRE' || fire === 'fire'){
                 fireLasers();
             };
-            //TESTING
+            
         } else {
             console.log("Enemy Attack Missed. It's your turn to fight back!");
 
-            //TESTING
             let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
             if(fire === 'FIRE' || fire === 'fire'){
                 fireLasers();
             };
-            //TESTING
         };
     //if enemy is dead
     } else if (enemyFleet[0].enemyHull <= 0) {
         console.log(`${enemyFleet[0].name} has been defeated, but ${enemyFleet[1].name} is rapidly approaching!`);
+
         enemyFleet.shift();
+
         console.log(enemyFleet);
 
-        //TESTING
         let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
         if(fire === 'FIRE' || fire === 'fire'){
             fireLasers();
         };
-        //TESTING
 
     };
 };
 
 //Game Round
 function gameRound(){
-    // let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
-    
-    // if(fire === 'FIRE' || fire === 'fire' && (Math.round(Math.random()) >= 1)){
-    // //attack successful
-    //     spaceShip.attackEnemy();
-    //     enemyFleet[0].enemyHull -= 5;
-
-    //     console.log(`ENEMY HP STATUS = ${enemyFleet[0].enemyHull} || SPACESHIP HP STATUS = ${spaceShip.hull}`)
-    //  } else {
-    // //attack misses
-    //     console.log('Your attack missed.')
-    //     };
-
-    //TESTING
     let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
     if(fire === 'FIRE' || fire === 'fire'){
         fireLasers();
         checkEnemyHull();
     };
-    //TESTING
-    
-
-    // function checkEnemyHull(){
-    //     //if enemy is still alive
-    //     if(enemyFleet[0].enemyHull > 0){
-            
-    //         console.log(`${enemyFleet[0].name} is retaliating...`)
-            
-    //         //enemy attacks if its accuracy is greater than or equal to 0.6-0.8
-    //         if(Math.random() >= enemyAcc){
-    //             enemyFleet[0].attackSpaceShip();
-
-    //             console.log("Ready your lasers! It's your turn to fight back!");
-
-    //             //TESTING
-    //             let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
-
-    //             if(fire === 'FIRE' || fire === 'fire'){
-    //                 fireLasers();
-    //             };
-    //             //TESTING
-    //         } else {
-    //             console.log("Enemy Attack Missed. It's your turn to fight back!");
-
-    //             //TESTING
-    //             let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
-    //             if(fire === 'FIRE' || fire === 'fire'){
-    //                 fireLasers();
-    //             };
-    //             //TESTING
-    //         };
-    //     //if enemy is dead
-    //     } else if (enemyFleet[0].enemyHull <= 0) {
-    //         console.log(`${enemyFleet[0].name} has been defeated, but ${enemyFleet[1].name} is rapidly approaching!`);
-    //         enemyFleet.shift();
-    //         console.log(enemyFleet);
-
-    //         //TESTING
-    //         let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
-    //         if(fire === 'FIRE' || fire === 'fire'){
-    //             fireLasers();
-    //         };
-    //         //TESTING
-
-    //     };
-    // };
 };
-
-// if(enemyFleet.length = 0){
-//     console.log('CONGRATULATIONS. YOU HAVE SUCCESSFULLY DEFEATED THE ENEMY FLEET. THE EXTRATERRESTRIALS OF THE GALAXY OF JAVAEOUS SCRIPTIUS THANK YOU.')
-// };
 
