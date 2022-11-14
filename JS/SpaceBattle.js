@@ -107,12 +107,12 @@ function enemyShipAttackChance(){
 //INTRO
 let plot = [
     `You are the captain of USS HelloWorld, traveling the beautiful galaxy of Javaeous Scriptius, when suddenly, you spot an enemy alien ship rapidly approaching!`,
-    // `Your ship’s hull is equipped with intergalactic armor made of strong moon rock, giving you a starting health status of 20 points.`,
-    // `Your ship also has powerful lasers made of stardust, damaging your enemies by 5 points with each hit.`,
-    // `However, the spaceship’s mechanic has been on sabbatical for the last light-year and the ship’s lasers can be unreliable, only hitting the enemy ship 70% of the time.`,
-    // `......`,
-    // `......`,
-    // `The Enemy is approaching!!! You have the advantage of attacking first - ready your aim and fire! Open your console to keep track of your stats!`
+    `Your ship’s hull is equipped with intergalactic armor made of strong moon rock, giving you a starting health status of 20 points.`,
+    `Your ship also has powerful lasers made of stardust, damaging your enemies by 5 points with each hit.`,
+    `However, the spaceship’s mechanic has been on sabbatical for the last light-year and the ship’s lasers can be unreliable, only hitting the enemy ship 70% of the time.`,
+    `......`,
+    `......`,
+    `The Enemy is approaching!!! You have the advantage of attacking first - ready your aim and fire! Open your console to keep track of your stats!`
 ];
 
 let startGame = document.getElementById('start-btn');
