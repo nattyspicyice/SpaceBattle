@@ -77,8 +77,9 @@ function spaceShipAttackChance(){
         //spaceship attack misses
         console.log('Your attack missed.');
 
-        //enemy retaliates
-        enemyShipAttackChance();
+        // //enemy retaliates
+        // enemyShipAttackChance();
+
     };
 };
 
@@ -90,15 +91,16 @@ function enemyShipAttackChance(){
 
         //spaceship hull pts are reduced
         deductSpaceShipHull();
+
     } else {
         //Enemy attack missed
         console.log("Enemy Attack Missed. Now it's your turn to attack!");
 
-        //spaceship retaliates
-        let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
-        if(fire === 'FIRE' || fire === 'fire'){
-            spaceShipAttackChance();
-        }
+        // //spaceship retaliates
+        // let fire = prompt('THE ENEMY SHIP IS WITHIN RANGE', `Type "FIRE" to initiate attack.`);
+        // if(fire === 'FIRE' || fire === 'fire'){
+        //     spaceShipAttackChance();
+        // }
     };
 };
 
@@ -156,4 +158,3 @@ function gameRound(){
         };
     };
 };
-

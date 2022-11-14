@@ -1,0 +1,55 @@
+body {
+    background-image: url("/Images/space-background.jpg");
+    z-index: -1;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#welcome-title {
+    text-align: center;
+    color: white;
+    padding-top: 20px;
+}
+
+#div-for-prompt-space {
+    margin: auto;
+    width: 50%;
+    padding: 20px;
+}
+
+#prompt-space {
+    background-color: black;
+    border: dotted aliceblue 1.5px;
+    border-radius: 5px;
+    height: 150px;
+    color: white;
+    text-align: center;
+    line-height: 150px;
+}
+
+#div-for-start-btn{
+    margin: auto;
+    width: 20%; 
+    padding: 15px;
+}
+
+#start-btn {
+    background-color: rgb(2, 3, 7);
+    border: solid lightblue 1px;
+    border-radius: 20px;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12pt;
+    padding: 10px;
+    box-shadow: 0 2px #999
+}
+
+#start-btn:hover {
+    background-color: #474646
+}
+
+#start-btn:active {
+  background-color: #474646;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
